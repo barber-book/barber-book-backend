@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: barber-book_api
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: barber_book
+      DB_HOST: db
+      JWT_SECRET: super_secret_key
+    volumes:
+      - .:/home/app/barber-book
+      - /home/app/barber-book/node_modules
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  db:
+    build:
+      context: ./postgres
+    image: barber_postgres-16-alpine
+    container_name: barber-book_db
+    volumes:
+      - ${USERPROFILE}/.postgres/barber_book/data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DBS=barber_book,barber_book_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
