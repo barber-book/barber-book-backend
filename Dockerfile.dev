@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+RUN mkdir -p /home/app && addgroup app && adduser -S -G app app
+
+ENV APP_HOME=/home/app/barber-book
+WORKDIR $APP_HOME
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN npm install -g pnpm
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+RUN chown -R app:app $APP_HOME
+USER app
+
+EXPOSE 3000
+
+CMD ["pnpm", "dev"]
+
