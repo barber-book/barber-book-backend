@@ -1,0 +1,63 @@
+# Node.js
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# dotenv environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Runtime data
+pids
+*.pid
+*.sock
+*.lock
+
+# Build artifacts
+dist/
+build/
+out/
+tmp/
+coverage/
+
+# Compiled output
+*.js.map
+*.d.ts
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Local configuration
+*.sublime-workspace
+*.esproj
+.history/
+
+# macOS specific files
+.DS_Store
