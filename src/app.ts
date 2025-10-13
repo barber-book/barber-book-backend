@@ -1,13 +1,21 @@
 import express from "express";
-import userRoutes from "./routes/userRoutes.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
+import userRoutes from "./routes/userRoutes.ts";
+import { errorHandler } from "./middlewares/errorHandler.ts";
 
-const app = express();
+export default class App {
 
-app.use(express.json());
 
-app.use("/user", userRoutes);
+  public app = express();
 
-app.use(errorHandler);
+  constructor() {
+    this.app.use(express.json());
+    this.app.use("/user", userRoutes);
+    this.app.use(errorHandler);
 
-export default app;
+  }
+
+}
+
+const appInstance = new App();
+export { appInstance as app };
+
