@@ -1,14 +1,14 @@
-import CrudService from "./crudService.js";
-import { User } from "../models/userModel.js";
+import CrudService from "./crudService.ts";
+import { User } from "../models/userModel.ts";
 import bcrypt from "bcryptjs";
-import ResponseHandler from "../utils/responseHandler.js";
+import ResponseHandler from "../utils/responseHandler.ts";
 
 class UserService extends CrudService {
   constructor() {
     super(User, "email"); 
   }
   
-  async create(data) {
+  async create(data: any) {
     if (!data.password) {
       throw new Error("Password is required");
     }
@@ -19,7 +19,7 @@ class UserService extends CrudService {
     return super.create(newData);
   }
 
-  async update(id, data) {
+  async update(id: any, data: any) {
     if (data.password) {
       const hashedPassword = await bcrypt.hash(data.password, 10);
       data.password = hashedPassword;
@@ -28,7 +28,7 @@ class UserService extends CrudService {
     return super.update(id, data);
   }
 
-  async validateLogin(email, password) {
+  async validateLogin(email: string, password: string) {
     const user = await this.model.findOne({ where: { email } });
 
     if (!user) {

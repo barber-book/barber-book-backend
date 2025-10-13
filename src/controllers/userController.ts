@@ -1,6 +1,7 @@
-import userService from "../services/userService.js";
+import { Request, Response, NextFunction } from "express";
+import userService from "../services/userService.ts";
 
-export async function listUsers(req, res, next) {
+export async function listUsers(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await userService.readAll();
     res.status(200).json(result);
@@ -9,7 +10,7 @@ export async function listUsers(req, res, next) {
   }
 }
 
-export async function getUser(req, res, next) {
+export async function getUser(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await userService.read(req.params.id);
     res.status(200).json(result);
@@ -18,7 +19,7 @@ export async function getUser(req, res, next) {
   }
 }
 
-export async function createUser(req, res, next) {
+export async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await userService.create(req.body);
     res.status(201).json(result);
@@ -27,7 +28,7 @@ export async function createUser(req, res, next) {
   }
 }
 
-export async function updateUser(req, res, next) {
+export async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await userService.update(req.params.id, req.body);
     res.status(200).json(result);
@@ -36,7 +37,7 @@ export async function updateUser(req, res, next) {
   }
 }
 
-export async function deleteUser(req, res, next) {
+export async function deleteUser(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await userService.delete(req.params.id);
     res.status(200).json(result);
@@ -46,7 +47,7 @@ export async function deleteUser(req, res, next) {
 }
 
 
-export async function login(req, res, next) {
+export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { email, password } = req.body;
 

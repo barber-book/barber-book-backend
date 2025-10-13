@@ -12,7 +12,7 @@ async function createDatabaseIfNotExists() {
   try {
     await tempSequelize.query("CREATE DATABASE barber_book");
     console.log("Database barber_book created");
-  } catch (error) {
+  } catch (error: any) {
     if (error.original?.code !== "42P04") {
       console.log("Database barber_book already exists or error:", error.message);
     }
@@ -23,7 +23,7 @@ async function createDatabaseIfNotExists() {
 
 await createDatabaseIfNotExists();
 
-export const sequelize = new Sequelize(process.env.DB_URL, {
+export const sequelize = new Sequelize(process.env.DB_URL!, {
    dialect: "postgres",
    logging: false,
 });
@@ -32,7 +32,7 @@ export async function connectDB() {
    try {
       await sequelize.authenticate();
       console.log("Connection has been established successfully.");
-   } catch (error) {
+   } catch (error: any) {
       console.error("Unable to connect to the database:", error);
       process.exit(1);
    }

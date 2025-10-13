@@ -1,12 +1,15 @@
-import ResponseHandler from "../utils/responseHandler.js";
+import ResponseHandler from "../utils/responseHandler.ts";
 
 export default class CrudService {
-  constructor(model, mainField = "") {
+  model: any;
+  mainField: string;
+
+  constructor(model: any, mainField: string = "") {
     this.model = model;
     this.mainField = mainField;
   }
 
-  async create(data) {
+  async create(data: any) {
     try {
       const obj = await this.model.create(data);
       return ResponseHandler.createSuccess(
@@ -14,7 +17,7 @@ export default class CrudService {
         obj.id,
         obj
       );
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === "SequelizeUniqueConstraintError") {
         await ResponseHandler.valueAlreadyExistsOnDb(this.model, data);
       }
@@ -22,7 +25,7 @@ export default class CrudService {
     }
   }
 
-  async read(id) {
+  async read(id: any) {
     const obj = await this.model.findByPk(id);
     if (!obj) ResponseHandler.notFoundError(this.model.name, id);
     return ResponseHandler.getSingleSuccess(obj[this.mainField], obj.id, obj);
@@ -35,7 +38,7 @@ export default class CrudService {
     return ResponseHandler.getAllSuccess(this.model.name, objs);
   }
 
-  async update(id, data) {
+  async update(id: any, data: any) {
     const obj = await this.model.findByPk(id);
     if (!obj) ResponseHandler.notFoundError(this.model.name, id);
 
@@ -46,7 +49,7 @@ export default class CrudService {
         obj.id,
         obj
       );
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === "SequelizeUniqueConstraintError") {
         await ResponseHandler.valueAlreadyExistsOnDb(this.model, data, id);
       }
@@ -54,7 +57,7 @@ export default class CrudService {
     }
   }
 
-  async delete(id) {
+  async delete(id: any) {
     const obj = await this.model.findByPk(id);
     if (!obj) ResponseHandler.notFoundError(this.model.name, id);
 
